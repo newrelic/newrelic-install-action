@@ -41,8 +41,8 @@ inputs:
     description: 'An optional list of key:value pairs separated by commas representing environment variables to pass to any of the installations.'
     required: false
 outputs:
-  result:
-    description: 'The output of the installation deployment on all inventory'
+  success:
+    description: 'The count host installation successfully performed.'
 runs:
   using: 'docker'
   image: 'Dockerfile'

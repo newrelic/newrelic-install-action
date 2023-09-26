@@ -5,5 +5,7 @@ result="$result\n"$(/root/.local/bin/ansible --version)
 
 
 echo "$result"
-echo "result=$result" >> $GITHUB_ENV
+
+success=$(echo "$result" | grep SUCCESS | wc -l)
+echo "success=$success" >> $GITHUB_ENV
 exit 0
