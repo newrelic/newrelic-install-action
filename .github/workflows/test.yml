@@ -1,0 +1,26 @@
+name: Test Suite
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test_basic:
+    runs-on: ubuntu-latest
+    name: Basic Usage
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Test install
+        uses: ./
+        env:
+          NEW_RELIC_ACCOUNT_ID: "1234"
+        with:
+          apiKey: "NRAK-any"
+          inventory: "1.1.1.1,1.1.1.2"
+          ssh_user: "ec2-user"
+          ssh_key_file: "/path/to/file.pem"
+          install_targets: "something,else"
