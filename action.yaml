@@ -1,0 +1,60 @@
+name: 'Install New Relic'
+author: 'New Relic'
+description: 'Install New Relic instrumentation using https://github.com/newrelic/ansible-install.'
+branding:
+  icon: 'upload-cloud'
+  color: 'green'
+inputs:
+  apiKey:
+    description: 'Your New Relic User API Key: <NRAK-...>'
+    required: true
+  accountId:
+    description: 'Your New Relic accountId.'
+    required: true
+  region:
+    description: 'The geographical region for your New Relic account - US or EU. Default: US'
+    required: false
+    default: US
+  inventory:
+    description: 'The list of IPs delimited by commas to use as the Ansible source inventory.'
+    required: true
+  ssh_user:
+    description: 'The user for the ssh connection.'
+    required: true
+  ssh_key_file:
+    description: 'The SSH private key file to use for connecting.'
+    required: true
+  ssh_params:
+    description: 'An optional list of key:value pairs separated by commas of parameters to add to the Ansible source inventory.'
+    required: false
+  ssh_known_hosts_check_enable:
+    description: 'To enable/disable the known host check when connecting with SSH (deault true).'
+    required: false
+    default: true
+  install_targets:
+    description: 'The list of targets to install separated by commas. Target names are listed on https://github.com/newrelic/ansible-install#targets-required'
+    required: true
+  install_tags:
+    description: 'An optional list of key:value pairs separated by commas representing tags to add to any of the installations.'
+    required: false
+  install_environment:
+    description: 'An optional list of key:value pairs separated by commas representing environment variables to pass to any of the installations.'
+    required: false
+outputs:
+  result:
+    description: 'The output of the installation deployment on all inventory'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    NEW_RELIC_API_KEY: ${{ inputs.apiKey }}
+    NEW_RELIC_ACCOUNT_ID: ${{ inputs.accountId }}
+    NEW_RELIC_REGION: ${{ inputs.region }}
+    NEW_RELIC_INVENTORY: ${{ inputs.inventory }}
+    NEW_RELIC_SSH_USER: ${{ inputs.ssh_user }}
+    NEW_RELIC_SSH_KEY_FILE: ${{ inputs.ssh_key_file }}
+    NEW_RELIC_SSH_PARAMS: ${{ inputs.ssh_params }}
+    NEW_RELIC_SSH_KNOWN_HOSTS_CHECK_ENABLE: ${{ inputs.ssh_known_hosts_check_enable }}
+    NEW_RELIC_INSTALL_TARGETS: ${{ inputs.install_targets }}
+    NEW_RELIC_INSTALL_TAGS: ${{ inputs.install_tags }}
+    NEW_RELIC_INSTALL_ENVIRONMENT: ${{ inputs.install_environment }}
