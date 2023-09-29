@@ -22,7 +22,7 @@ inputs:
     description: 'The user for the ssh connection.'
     required: true
   ssh_key_file:
-    description: 'The SSH private key file to use for connecting.'
+    description: 'The SSH private key file to use for connecting. Note, ensure you're storing this file securely, using [GitHub Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) for example.'
     required: true
   ssh_known_hosts_check_enable:
     description: 'To enable/disable the known host check when connecting with SSH (deault true).'
