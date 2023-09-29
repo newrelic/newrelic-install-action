@@ -5,7 +5,8 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   test_basic:
@@ -14,13 +15,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Build docker images
+        run: docker build -t . -t newrelic-install-action
       - name: Test install
-        uses: ./
+        run: docker run -it \
+          -e NEW_RELIC_API_KEY="NRAK-any" \
+          -e NEW_RELIC_INVENTORY="1.1.1.1,1.1.1.2" \
+          -e NEW_RELIC_SSH_USER="ec2-user" \
+          -e NEW_RELIC_SSH_KEY_FILE="/path/to/file.pem" \
+          -e NEW_RELIC_INSTALL_TARGETS="something,else" \
+          newrelic-install-action
         env:
           NEW_RELIC_ACCOUNT_ID: "1234"
-        with:
-          apiKey: "NRAK-any"
-          inventory: "1.1.1.1,1.1.1.2"
-          ssh_user: "ec2-user"
-          ssh_key_file: "/path/to/file.pem"
-          install_targets: "something,else"
