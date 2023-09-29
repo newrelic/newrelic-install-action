@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build docker images
-        run: docker build -t . -t newrelic-install-action
+        run: docker build . -t newrelic-install-action
       - name: Test install
         run: docker run -it \
           -e NEW_RELIC_API_KEY="NRAK-any" \
