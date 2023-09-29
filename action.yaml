@@ -24,9 +24,6 @@ inputs:
   ssh_key_file:
     description: 'The SSH private key file to use for connecting.'
     required: true
-  ssh_params:
-    description: 'An optional list of key:value pairs separated by commas of parameters to add to the Ansible source inventory.'
-    required: false
   ssh_known_hosts_check_enable:
     description: 'To enable/disable the known host check when connecting with SSH (deault true).'
     required: false
@@ -50,7 +47,6 @@ runs:
     NEW_RELIC_INVENTORY: ${{ inputs.inventory }}
     NEW_RELIC_SSH_USER: ${{ inputs.ssh_user }}
     NEW_RELIC_SSH_KEY_FILE: ${{ inputs.ssh_key_file }}
-    NEW_RELIC_SSH_PARAMS: ${{ inputs.ssh_params }}
     NEW_RELIC_SSH_KNOWN_HOSTS_CHECK_ENABLE: ${{ inputs.ssh_known_hosts_check_enable }}
     NEW_RELIC_INSTALL_TARGETS: ${{ inputs.install_targets }}
     NEW_RELIC_INSTALL_TAGS: ${{ inputs.install_tags }}

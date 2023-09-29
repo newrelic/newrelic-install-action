@@ -24,10 +24,19 @@ for item in $NEW_RELIC_INSTALL_TARGETS; do
     echo "          - $item" | tee -a playbook.yaml > /dev/null
 done
 
+echo "        tags:" | tee -a playbook.yaml > /dev/null
+echo "          - nr_deployed_by: newrelic-install-action" | tee -a playbook.yaml > /dev/null
+export IFS=","
+for item in $NEW_RELIC_INSTALL_TAGS; do
+    format_item=$(echo $item | sed "s/ //g" | sed "s/:/: /g")
+    echo "          - $format_item" | tee -a playbook.yaml > /dev/null
+done
+
 echo "  environment:" | tee -a playbook.yaml > /dev/null
 export IFS=","
 for item in $NEW_RELIC_INSTALL_ENVIRONMENT; do
-    echo "    $item" | tee -a playbook.yaml > /dev/null
+    format_item=$(echo $item | sed "s/ //g" | sed "s/:/: /g")
+    echo "    - $format_item" | tee -a playbook.yaml > /dev/null
 done
 echo "    NEW_RELIC_API_KEY: $NEW_RELIC_API_KEY" | tee -a playbook.yaml > /dev/null
 echo "    NEW_RELIC_ACCOUNT_ID: $NEW_RELIC_ACCOUNT_ID" | tee -a playbook.yaml > /dev/null
@@ -43,5 +52,9 @@ exitStatus=$?
 if [ $exitStatus -ne 0 ]; then
   echo "::error:: $result"
 fi
+
+# Cleanup
+rm -f hosts
+rm -f playbook.yaml
 
 exit $exitStatus
