@@ -18,12 +18,11 @@ jobs:
       - name: Build docker images
         run: docker build . -t newrelic-install-action
       - name: Test install
-        run: docker run \
-          -e NEW_RELIC_API_KEY="NRAK-any" \
-          -e NEW_RELIC_INVENTORY="1.1.1.1,1.1.1.2" \
-          -e NEW_RELIC_SSH_USER="ec2-user" \
-          -e NEW_RELIC_SSH_KEY_FILE="/path/to/file.pem" \
-          -e NEW_RELIC_INSTALL_TARGETS="something,else" \
-          newrelic-install-action
+        run: docker run newrelic-install-action
         env:
           NEW_RELIC_ACCOUNT_ID: "1234"
+          NEW_RELIC_API_KEY: "NRAK-any"
+          NEW_RELIC_INVENTORY: "1.1.1.1,1.1.1.2"
+          NEW_RELIC_SSH_USER: "ec2-user"
+          NEW_RELIC_SSH_KEY_FILE: "/path/to/file.pem"
+          NEW_RELIC_INSTALL_TARGETS: "something,else"
