@@ -18,7 +18,7 @@ jobs:
       - name: Build docker images
         run: docker build . -t newrelic-install-action
       - name: Test install
-        run: docker run -i\
+        run: docker run \
           -e NEW_RELIC_API_KEY="NRAK-any" \
           -e NEW_RELIC_INVENTORY="1.1.1.1,1.1.1.2" \
           -e NEW_RELIC_SSH_USER="ec2-user" \
