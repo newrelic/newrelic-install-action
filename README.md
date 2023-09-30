@@ -11,9 +11,11 @@ A GitHub Action to install New Relic on a given list of hosts using Ansible and 
 | `accountId` | **yes** | - | Your New Relic AccountID. |
 | `region` | no | `US` | The region of your New Relic account. Default: `US` |
 | `inventory` | **yes** | - | The list of IPs delimited by commas to use as the source inventory. |
-| `ssh_user` | **yes** | - | The user for the ssh connection. |
-| `ssh_key_file` | **yes**  | - | The SSH private key file to use for connecting. Note, ensure you're storing this file securely, using [GitHub Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) for example. |
-| `ssh_known_hosts_check_enable` | no  | `true` | To enable/disable the known host check when connecting with SSH (deault true). |
+| `ssh_user` | **yes** | - | The user name for either the SSH or WinRM connection. |
+| `user_password` | no | - | Used for Windows host with WinRM. `winrm_enable` must be set to `true`. |
+| `winrm_enable` | no | - | `true` when using WinRM to connect to a Windows host(s). `password` must be used when enabled. This configuration also disables the WinRM server certificate validation. Default: `false`. |
+| `ssh_key_file` | no  | - | The SSH private key file to use for connecting (Linux or Windows/OpenSSH). Note, ensure you're storing this file securely, using [GitHub Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) for example. |
+| `ssh_known_hosts_check_enable` | no  | `true` | To enable/disable the known host check when connecting with SSH (deault `true`). |
 | `install_targets` | **yes**  | - | The list of targets to install separated by commas. Target names are listed on https://github.com/newrelic/ansible-install#targets-required . |
 | `install_tags` | no  | - | An optional list of key:value pairs separated by commas representing tags to add to any of the installations. |
 | `install_environment` | no  | - | An optional list of key:value pairs separated by commas representing environment variables to pass to any of the installations. |
@@ -25,6 +27,7 @@ A GitHub Action to install New Relic on a given list of hosts using Ansible and 
 [Github secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#about-encrypted-secrets) assumed to be set:
 * `NEW_RELIC_API_KEY` - Personal API key
 * `NEW_RELIC_ACCOUNT_ID` - New Relic AccountID
+* `NEW_RELIC_USER_PASSWORD` - Password for the user when using WinRM instead of SSH to connect to a Windows host
 
 >*There are a number of [default GitHub environment variables](https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables) that are used in these examples as well.*
 

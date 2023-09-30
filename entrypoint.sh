@@ -6,7 +6,16 @@ python3 --version
 rm -f hosts
 export IFS=","
 for item in $NEW_RELIC_INVENTORY; do
-    echo "$item ansible_connection=ssh ansible_user=\"$NEW_RELIC_SSH_USER\" ansible_ssh_private_key_file=\"$NEW_RELIC_SSH_KEY_FILE\"" | tee -a hosts > /dev/null
+    host_param=$(echo "$item ansible_user=\"$NEW_RELIC_SSH_USER\"")
+    if [ "$NEW_RELIC_WINRM_ENABLED" = "true" ]; then
+        host_param="$host_param ansible_connection=\"winrm\" ansible_port=\"5986\" ansible_winrm_server_cert_validation=\"ignore\" ansible_password=\"$NEW_RELIC_USER_PASSWORD\""
+    else
+        host_param="$host_param ansible_connection=\"ssh\""
+        if [ -n "$NEW_RELIC_SSH_KEY_FILE" ]; then
+            host_param="$host_param ansible_ssh_private_key_file=\"$NEW_RELIC_SSH_KEY_FILE\""
+        fi
+    fi
+    echo "$host_param" | tee -a hosts > /dev/null
 done
 
 rm -f playbook.yaml

@@ -19,11 +19,18 @@ inputs:
     description: 'The list of IPs delimited by commas to use as the Ansible source inventory.'
     required: true
   ssh_user:
-    description: 'The user for the ssh connection.'
+    description: 'The user name for either the SSH or WinRM connection.'
     required: true
+  user_password:
+    description: 'Used for Windows host with WinRM. `winrm_enable` must be set to true.'
+    required: false
+  winrm_enable:
+    description: '`true` when using WinRM to connect to a Windows host(s). `password` must be used when enabled. This configuration also disables the WinRM server certificate validation. Default: `false`.'
+    required: false
+    default: false
   ssh_key_file:
     description: 'The SSH private key file to use for connecting. Note, ensure you're storing this file securely, using [GitHub Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) for example.'
-    required: true
+    required: false
   ssh_known_hosts_check_enable:
     description: 'To enable/disable the known host check when connecting with SSH (deault true).'
     required: false
@@ -46,7 +53,9 @@ runs:
     NEW_RELIC_REGION: ${{ inputs.region }}
     NEW_RELIC_INVENTORY: ${{ inputs.inventory }}
     NEW_RELIC_SSH_USER: ${{ inputs.ssh_user }}
+    NEW_RELIC_USER_PASSWORD: ${{ inputs.user_password }}
     NEW_RELIC_SSH_KEY_FILE: ${{ inputs.ssh_key_file }}
+    NEW_RELIC_WINRM_ENABLED: ${{ inputs.winrm_enable }}
     NEW_RELIC_SSH_KNOWN_HOSTS_CHECK_ENABLE: ${{ inputs.ssh_known_hosts_check_enable }}
     NEW_RELIC_INSTALL_TARGETS: ${{ inputs.install_targets }}
     NEW_RELIC_INSTALL_TAGS: ${{ inputs.install_tags }}
