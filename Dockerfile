@@ -1,4 +1,4 @@
-FROM ghcr.io/julien4218/ansible-runner:main
+FROM ghcr.io/newrelic/ansible-runner:main
 
 RUN /root/.local/bin/ansible-galaxy install newrelic.newrelic_install
 
