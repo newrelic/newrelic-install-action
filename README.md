@@ -1,3 +1,5 @@
+[![Community Project header](https://github.com/newrelic/open-source-office/raw/master/examples/categories/images/Community_Project.png)](https://github.com/newrelic/open-source-office/blob/master/examples/categories/index.md#category-community-project)
+
 # Install New Relic action
 
 A GitHub Action to install New Relic on a given list of hosts using Ansible and SSH. More info regarding installation capabilities at https://github.com/newrelic/ansible-install
@@ -44,7 +46,7 @@ jobs:
     name: New Relic
     steps:
       - name: Main Install
-        uses: julien4218/newrelic-install-action@v[TBD]
+        uses: newrelic/newrelic-install-action@v[TBD]
         with:
           apiKey: ${{ secrets.NEW_RELIC_API_KEY }}
           accountId: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
