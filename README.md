@@ -83,7 +83,7 @@ As noted in our [security policy](https://github.com/newrelic/ansible-install/se
 
 If you believe you have found a security vulnerability in this project or any of New Relic's products or websites, we welcome and greatly appreciate you reporting it to New Relic through [HackerOne](https://hackerone.com/newrelic).
 
-If you would like to contribute to this project, review [these guidelines](https://github.com/newrelic/ansible-install/blob/main/CONTRIBUTING.md).
+If you would like to contribute to this project, review [these guidelines](https://github.com/newrelic/newrelic-install-action/blob/main/CONTRIBUTING.md).
 
 To all contributors, we thank you! Without your contribution, this project would not be what it is today.
 
