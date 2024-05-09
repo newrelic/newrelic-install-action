@@ -46,7 +46,7 @@ jobs:
     name: New Relic
     steps:
       - name: Main Install
-        uses: newrelic/newrelic-install-action@v[TBD]
+        uses: newrelic/newrelic-install-action@be871ded84816687a65a3d5409983e4c5d66208b
         with:
           apiKey: ${{ secrets.NEW_RELIC_API_KEY }}
           accountId: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
